@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Панель управления{% endblock %}
+{% block content %}
+<section class="hero">
+    <div>
+        <p class="eyebrow">День {{ state.day }} · уровень {{ state.level }}</p>
+        <h1>{{ state.company }}: симулятор корпорации</h1>
+        <p>Развивайте виртуальную компанию: нанимайте персонал, улучшайте продукт, запускайте маркетинг, проводите продажи и контролируйте риски.</p>
+        <p class="last-action">{{ state.last_action }}</p>
+    </div>
+    <div class="valuation">
+        <span>Оценка бизнеса</span>
+        <strong>{{ metrics.valuation }} ₽</strong>
+    </div>
+</section>
+
+<section class="grid metrics">
+    <article><span>Капитал</span><strong>{{ state.cash }} ₽</strong></article>
+    <article><span>Персонал</span><strong>{{ state.staff }}</strong></article>
+    <article><span>Репутация</span><strong>{{ state.reputation }}</strong></article>
+    <article><span>Продукт</span><strong>{{ state.product }}</strong></article>
+    <article><span>Технологии</span><strong>{{ state.technology }}</strong></article>
+    <article><span>Риск</span><strong>{{ state.risk }}</strong></article>
+</section>
+
+<section class="panel">
+    <h2>Управленческие действия</h2>
+    <div class="actions">
+        {% for key, item in actions.items() %}
+            <form action="{{ url_for('action') }}" method="post">
+                <input type="hidden" name="action" value="{{ key }}">
+                <button type="submit">{{ item.name }}</button>
+            </form>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="grid two">
+    <div class="panel">
+        <h2>Сводные индексы</h2>
+        <div class="progress"><span>Рыночная сила</span><b style="width: {{ metrics.market_power if metrics.market_power < 100 else 100 }}%"></b></div>
+        <div class="progress"><span>Устойчивость</span><b style="width: {{ metrics.stability }}%"></b></div>
+        <div class="progress"><span>Эффективность</span><b style="width: {{ metrics.efficiency if metrics.efficiency < 100 else 100 }}%"></b></div>
+    </div>
+    <div class="panel">
+        <h2>Последние события</h2>
+        {% if events %}
+            <ul class="events">
+                {% for event in events %}
+                    <li><b>{{ event.action }}</b><span>{{ event.description }}</span></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Событий пока нет. Выполните первое действие на панели управления.</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

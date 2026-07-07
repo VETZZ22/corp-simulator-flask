@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Стратегия{% endblock %}
+{% block content %}
+<section class="panel wide">
+    <h1>Стратегия корпорации</h1>
+    <p>На этой странице задается базовая идентификация компании. Изменение названия сохраняется в JSON-файле и отображается на всех страницах приложения.</p>
+    <form method="post" class="strategy-form">
+        <label for="company">Название корпорации</label>
+        <input id="company" name="company" value="{{ state.company }}" maxlength="40" required>
+        <button type="submit">Сохранить стратегию</button>
+    </form>
+</section>
+<section class="grid two">
+    <div class="panel">
+        <h2>Текущий уровень</h2>
+        <p class="big-number">{{ state.level }}</p>
+        <p>Уровень рассчитывается на основе продукта, технологий, репутации и количества сотрудников.</p>
+    </div>
+    <div class="panel">
+        <h2>Рекомендация</h2>
+        <p>Для устойчивого роста следует чередовать продажи с улучшением продукта и аудитом рисков. Так корпорация получает выручку и не теряет стабильность.</p>
+    </div>
+</section>
+{% endblock %}

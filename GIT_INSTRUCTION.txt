@@ -1,0 +1,14 @@
+Как выгрузить проект на GitHub/GitLab:
+
+1. Создать пустой репозиторий на GitHub или GitLab.
+2. Открыть терминал в папке project/corp_simulator.
+3. Выполнить команды:
+
+git init
+git add .
+git commit -m "Initial Flask corporation simulator"
+git branch -M main
+git remote add origin <ссылка-на-репозиторий>
+git push -u origin main
+
+Проект уже содержит README.md, requirements.txt и .gitignore.

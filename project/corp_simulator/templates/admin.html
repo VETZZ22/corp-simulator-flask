@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Админ-панель{% endblock %}
+{% block content %}
+<section class="panel wide">
+    <h1>Административная панель</h1>
+    <p>Панель предназначена для просмотра сохраненного состояния симулятора и журнала действий пользователя.</p>
+    <form action="{{ url_for('reset') }}" method="post">
+        <button type="submit" class="danger">Сбросить симулятор</button>
+    </form>
+</section>
+<section class="grid two">
+    <div class="panel">
+        <h2>Текущее состояние</h2>
+        <table>
+            <tr><th>Показатель</th><th>Значение</th></tr>
+            <tr><td>Компания</td><td>{{ state.company }}</td></tr>
+            <tr><td>День</td><td>{{ state.day }}</td></tr>
+            <tr><td>Капитал</td><td>{{ state.cash }} ₽</td></tr>
+            <tr><td>Оценка бизнеса</td><td>{{ metrics.valuation }} ₽</td></tr>
+        </table>
+    </div>
+    <div class="panel">
+        <h2>Журнал событий</h2>
+        <ul class="events admin-events">
+            {% for event in events %}
+                <li><b>{{ event.time }} · {{ event.action }}</b><span>{{ event.description }} · Δ {{ event.cash_delta }} ₽</span></li>
+            {% else %}
+                <li><span>Журнал пока пуст.</span></li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+{% endblock %}
